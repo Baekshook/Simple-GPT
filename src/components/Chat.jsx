@@ -3,6 +3,7 @@ import { useState } from "react";
 
 const Chat = () => {
   const [question, setQuestion] = useState("");
+  const [content, setContent] = useState("");
 
   const onSubmitChat = async (e) => {
     try {
@@ -11,7 +12,9 @@ const Chat = () => {
       const response = await axios.post(
         "https://holy-fire-2749.fly.dev/chat",
         {
-          question: "안녕?",
+          //   question: `${question}`,
+          //   question: question,
+          question,
         },
         {
           headers: {
@@ -19,15 +22,14 @@ const Chat = () => {
           },
         }
       );
-
-      console.log(response);
+      setContent(response.data.choices[0].message.content);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="bg-black min-h-screen flex justify-center items-center text-white">
+    <div className="bg-black min-h-screen flex flex-col justify-center items-center text-white">
       <form onSubmit={onSubmitChat}>
         <input
           className="text-black"
@@ -37,6 +39,7 @@ const Chat = () => {
         />
         <input className="ml-3" type="submit" value="검 색" />
       </form>
+      {content && <div className="mt-10 px-80">{content}</div>}
     </div>
   );
 };
