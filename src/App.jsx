@@ -77,7 +77,8 @@ function App() {
         <div className="flex flex-col justify-center items-center">
           {weatherIcon[weatherInfo.weather[0].icon.substring(0, 2)]}
           <div className="mt-8 text-2xl">
-            {weatherInfo.name}, {weatherInfo.main.temp } ℃
+            {weatherInfo.name},{" "}
+            {weatherInfo.main.temp.toString().substring(0, 4)} ℃
           </div>
         </div>
       ) : (
