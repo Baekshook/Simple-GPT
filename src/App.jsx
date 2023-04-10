@@ -72,7 +72,9 @@ function App() {
   useEffect(() => console.log(process.env.REACT_APP_WEATHER_API), []);
 
   return (
-    <div className="bg-red-100 min-h-screen flex justify-center items-center"></div>
+    <div className="bg-red-100 min-h-screen flex justify-center items-center">
+      {weatherInfo ? "날씨 정보가 있음." : "날씨 정보를 로딩중입니다 ..."}
+    </div>
   );
 }
 
