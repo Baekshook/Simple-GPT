@@ -27,6 +27,7 @@ const weatherIcon = {
 function App() {
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
+  const [weatherInfo, setWeatherInfo] = useState();
 
   const getGeolocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -45,7 +46,14 @@ function App() {
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric`
       );
 
-      console.log(response);
+      if (response.status !== 200) {
+        alert("날씨 정보를 가져오지 못했습니다.");
+
+        return;
+      }
+
+      console.log(response.data);
+      setWeatherInfo(response.data);
     } catch (error) {
       console.error(error);
     }
