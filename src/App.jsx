@@ -76,6 +76,9 @@ function App() {
       {weatherInfo ? (
         <div className="flex flex-col justify-center items-center">
           {weatherIcon[weatherInfo.weather[0].icon.substring(0, 2)]}
+          <div className="mt-8 text-2xl">
+            {weatherInfo.name}, {weatherInfo.main.temp } ℃
+          </div>
         </div>
       ) : (
         "날씨 정보를 로딩중입니다 ..."
