@@ -4,11 +4,25 @@ import { useState } from "react";
 const Chat = () => {
   const [question, setQuestion] = useState("");
   const [content, setContent] = useState("");
-  
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmitChat = async (e) => {
     try {
       e.preventDefault();
+
+      if (isLoading) {
+        alert("검색중입니다...");
+        return;
+      }
+
+      if (!question) {
+        alert("질문을 입력해주세요.");
+
+        return;
+      }
+
+      // 로딩중 true
+      setIsLoading(true);
 
       const response = await axios.post(
         "https://holy-fire-2749.fly.dev/chat",
@@ -26,12 +40,19 @@ const Chat = () => {
 
       if (response.status !== 200) {
         alert("오류가 발생했습니다.");
+        // 로딩중 false
+        setIsLoading(false);
         return;
       }
-
       setContent(response.data.choices[0].message.content);
+
+      // 로딩중 false
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
+
+      // 로딩중 false
+      setIsLoading(false);
     }
   };
 
