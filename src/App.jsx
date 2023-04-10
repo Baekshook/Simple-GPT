@@ -73,7 +73,13 @@ function App() {
 
   return (
     <div className="bg-red-100 min-h-screen flex justify-center items-center">
-      {weatherInfo ? "날씨 정보가 있음." : "날씨 정보를 로딩중입니다 ..."}
+      {weatherInfo ? (
+        <div className="flex flex-col justify-center items-center">
+          {weatherIcon[weatherInfo.weather[0].icon.substring(0, 2)]}
+        </div>
+      ) : (
+        "날씨 정보를 로딩중입니다 ..."
+      )}
     </div>
   );
 }
