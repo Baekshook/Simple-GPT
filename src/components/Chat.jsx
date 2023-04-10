@@ -4,6 +4,7 @@ import { useState } from "react";
 const Chat = () => {
   const [question, setQuestion] = useState("");
   const [content, setContent] = useState("");
+  
 
   const onSubmitChat = async (e) => {
     try {
@@ -22,6 +23,12 @@ const Chat = () => {
           },
         }
       );
+
+      if (response.status !== 200) {
+        alert("오류가 발생했습니다.");
+        return;
+      }
+
       setContent(response.data.choices[0].message.content);
     } catch (error) {
       console.error(error);
