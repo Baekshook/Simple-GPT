@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import {
   FaSun,
   FaCloudSun,
@@ -11,6 +10,7 @@ import {
   FaSnowflake,
   FaSmog,
 } from "react-icons/fa";
+import axios from "axios";
 
 const weatherIcon = {
   "01": <FaSun size={96} />,
@@ -39,12 +39,13 @@ function App() {
       }
     );
   };
-
   const getWeatherInfo = async () => {
     try {
-      await axios.get(
+      const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric`
       );
+
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -53,9 +54,13 @@ function App() {
   useEffect(() => {
     getGeolocation();
   }, []);
+  useEffect(() => {
+    if (!lat || !lon) return;
+
+    getWeatherInfo();
+  }, [lat, lon]);
   useEffect(() => console.log(lat), [lat]);
   useEffect(() => console.log(lon), [lon]);
-
   useEffect(() => console.log(process.env.REACT_APP_WEATHER_API), []);
 
   return (
