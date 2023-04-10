@@ -23,6 +23,7 @@ const Chat = () => {
 
       // 로딩중 true
       setIsLoading(true);
+      setContent("")
 
       const response = await axios.post(
         "https://holy-fire-2749.fly.dev/chat",
@@ -36,7 +37,7 @@ const Chat = () => {
             Authorization: "Bearer BLOCKCHAINSCHOOL3",
           },
         }
-      );
+      ); // await 함수 실행될때 까지 아래코드 실행되지 않음
 
       if (response.status !== 200) {
         alert("오류가 발생했습니다.");
